@@ -188,6 +188,29 @@ export default function CadastroUsuario() {
   };
 
   const handleChange = (name, value) => {
+
+    if (name === 'nome') {
+      value = value
+        .toLowerCase()
+        .split(' ')
+        .map(palavra =>
+          palavra
+            .split('-')
+            .map(parte =>
+              parte.charAt(0).toUpperCase() + parte.slice(1)
+            )
+            .join('-')
+        )
+        .join(' ');
+    }
+  
+    // Telefone com +55 automático
+    if (name === 'telefone') {
+      if (!value.startsWith('+55')) {
+        value = '+55' + value.replace(/^(\+)?(55)?/, '');
+      }
+    }
+
     setForm(prev => ({ ...prev, [name]: value }));
     setErrors(prev => ({ ...prev, [name]: false }));
     
@@ -346,6 +369,8 @@ export default function CadastroUsuario() {
     try {
       await registerUser({
         ...form,
+        password1: form.password,
+        password2: form.password2,
         estado: estados.find(e => e.nome === form.estado)?.sigla,
         data_nascimento: formatarDataParaBackend(form.data_nascimento),
         cpf: form.cpf.replace(/\D/g, ''),

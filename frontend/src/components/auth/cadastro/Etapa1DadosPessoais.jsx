@@ -52,10 +52,14 @@ const Etapa1DadosPessoais = ({ form, errors, errorMessages, handleChange }) => {
       <div className={`field-group ${errors.telefone ? 'input-error' : ''}`}>
         <IMaskInput
           className="input"
-          placeholder=" "
-          mask="(00) 00000-0000"
+          mask="+55 (00) 00000-0000"
+          definitions={{
+            '0': /[0-9]/,
+          }}
           value={form.telefone}
+          unmask={false} // mantém a formatação visível no input
           onAccept={(value) => handleChange('telefone', value)}
+          placeholder=" "
         />
         <span className="floating-label">Telefone *</span>
         {errors.telefone && (

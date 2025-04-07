@@ -8,15 +8,9 @@ from users.serializers import (
 )
 
 
+
 class CustomRegisterView(RegisterView):
     serializer_class = CustomRegisterSerializer
-    
-    def perform_create(self, serializer):
-        user = serializer.save(self.request)
-        # Garante que a data seja salva
-        user.data_nascimento = serializer.validated_data.get('data_nascimento')
-        user.save()
-        return user
     
 class CustomLoginView(LoginView):
     serializer_class = LoginSerializer

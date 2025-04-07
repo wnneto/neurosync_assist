@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'admin_interface',
     'colorfield',
 
-
     # CORS
     'corsheaders',
 
@@ -132,7 +131,6 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'neurosync-refresh-token',
 }
 
-# Patch extra só por garantia
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer'
 }
@@ -144,9 +142,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:8000",
 ]
-
 CORS_ALLOW_CREDENTIALS = True
-
 
 # ======================
 # DRF CONFIG
@@ -181,13 +177,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Formato BR de datas
-pt_br_formats.DATE_FORMAT = "d/m/Y"
-pt_br_formats.DATETIME_FORMAT = "d/m/Y H:i"
-pt_br_formats.TIME_FORMAT = "H:i"
+DATE_FORMAT = 'd/m/Y'
+DATETIME_FORMAT = 'd/m/Y H:i'
+TIME_FORMAT = 'H:i'
 
-DATE_INPUT_FORMATS = ['%d/%m/%Y']
-DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M', '%d-%m-%Y %H:%M']
+DATE_INPUT_FORMATS = ['%d/%m/%Y', '%Y-%m-%d']
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M', '%Y-%m-%d %H:%M']
 
 # ======================
 # STATIC

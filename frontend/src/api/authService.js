@@ -5,16 +5,22 @@ export const registerUser = async (userData) => {
     console.log('Dados sendo enviados:', userData);
     
     const response = await api.post('/dj-rest-auth/registration/', {
-      username: userData.username || userData.email.split('@')[0],
       email: userData.email,
       password1: userData.password,
       password2: userData.password2,
-      first_name: userData.first_name || userData.nome.split(' ')[0],
-      last_name: userData.last_name || userData.nome.split(' ').slice(1).join(' '),
+      nome: userData.nome,
+      sexo: userData.sexo,
+      data_nascimento: userData.data_nascimento,
+      telefone: userData.telefone,
       cpf: userData.cpf,
-      phone: userData.telefone,
-      birth_date: userData.data_nascimento,
-      address: userData.address
+      cep: userData.cep,
+      logradouro: userData.logradouro,
+      numero: userData.numero,
+      complemento: userData.complemento || '',
+      bairro: userData.bairro,
+      cidade: userData.cidade,
+      estado: userData.estado,
+      pais: userData.pais || 'Brasil'
     });
 
     console.log('Resposta da API:', response);

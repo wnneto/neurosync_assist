@@ -1,4 +1,3 @@
-# users/serializers/base_serializers.py
 
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
@@ -19,26 +18,6 @@ class CustomRegisterSerializer(RegisterSerializer):
     nome = serializers.CharField(required=True)
     sexo = serializers.ChoiceField(choices=CustomUser.SEXO_CHOICES, required=True)
     data_nascimento = serializers.CharField(required=True)
-    
-    def validate_data_nascimento(self, value):
-        try:
-            # Aceita tanto DD/MM/YYYY quanto YYYY-MM-DD
-            if '/' in value:
-                return datetime.strptime(value, '%d/%m/%Y').date()
-            else:
-                return datetime.strptime(value, '%Y-%m-%d').date()
-        except ValueError:
-            raise serializers.ValidationError(
-                "Formato de data inválido. Use DD/MM/YYYY ou YYYY-MM-DD."
-            )
-    
-    def to_representation(self, instance):
-        # Converte para formato BR na saída
-        representation = super().to_representation(instance)
-        if instance.data_nascimento:
-            representation['data_nascimento'] = instance.data_nascimento.strftime('%d/%m/%Y')
-        return representation
-
     telefone = serializers.CharField(required=True)
     cpf = serializers.CharField(required=True)
     cep = serializers.CharField(required=True)
@@ -50,7 +29,19 @@ class CustomRegisterSerializer(RegisterSerializer):
     estado = serializers.CharField(required=True)
     pais = serializers.CharField(required=False, default='Brasil')
 
-    username = None  # remove campo username
+    username = None  # remove o campo username
+
+    def validate_nome(self, value):
+        return ' '.join(word.capitalize() for word in value.strip().split())
+
+    def validate_data_nascimento(self, value):
+        try:
+            if '/' in value:
+                return datetime.strptime(value, '%d/%m/%Y').date()
+            else:
+                return datetime.strptime(value, '%Y-%m-%d').date()
+        except ValueError:
+            raise serializers.ValidationError("Formato de data inválido. Use DD/MM/YYYY ou YYYY-MM-DD.")
 
     def validate_cpf(self, value):
         cpf_formatado = formatar_cpf(value)
@@ -61,10 +52,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         return cpf_formatado
 
     def validate_telefone(self, value):
-        telefone_formatado = formatar_telefone(value)
-        if CustomUser.objects.filter(telefone=telefone_formatado).exists():
-            raise serializers.ValidationError("Já existe um usuário com este telefone.")
-        return telefone_formatado
+        return formatar_telefone(value)
 
     def validate_cep(self, value):
         return formatar_cep(value)
@@ -73,35 +61,57 @@ class CustomRegisterSerializer(RegisterSerializer):
         endereco = buscar_endereco_por_cep(data.get('cep'))
         if not endereco:
             raise serializers.ValidationError("CEP inválido ou não encontrado.")
-
         for campo in ['logradouro', 'bairro', 'cidade', 'estado']:
             if not data.get(campo):
                 data[campo] = endereco.get(campo, '')
-
-        data['pais'] = data.get('pais', 'Brasil')
-        return super().validate(data)
+        return data
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
-        fields = [
+        campos_personalizados = [
             'nome', 'sexo', 'data_nascimento', 'telefone', 'cpf',
             'cep', 'logradouro', 'numero', 'complemento',
             'bairro', 'cidade', 'estado', 'pais'
         ]
-        for field in fields:
-            data[field] = self.validated_data.get(field)
+        for campo in campos_personalizados:
+            data[campo] = self.validated_data.get(campo)
         return data
 
     def save(self, request):
-        user = super().save(request)
-        for attr, value in self.get_cleaned_data().items():
-            setattr(user, attr, value)
-        user.save()
+        cleaned_data = self.get_cleaned_data()
+
+        user = CustomUser.objects.create_user(
+            email=cleaned_data['email'],
+            password=cleaned_data['password1'],
+            nome=cleaned_data['nome'],
+            sexo=cleaned_data['sexo'],
+            data_nascimento=cleaned_data['data_nascimento'],
+            telefone=cleaned_data['telefone'],
+            cpf=cleaned_data['cpf'],
+            cep=cleaned_data['cep'],
+            logradouro=cleaned_data['logradouro'],
+            numero=cleaned_data['numero'],
+            complemento=cleaned_data.get('complemento', ''),
+            bairro=cleaned_data['bairro'],
+            cidade=cleaned_data['cidade'],
+            estado=cleaned_data['estado'],
+            pais=cleaned_data.get('pais', 'Brasil'),
+        )
+
+        # Importante para integração com allauth
+        self.custom_signup(request, user)
+        return user
+
+
+    def create_user_instance(self, request):
+        adapter = self.get_adapter()
+        user = adapter.new_user(request)
+        self.cleaned_data = self.get_cleaned_data()
+        adapter.save_user(request, user, self)
         return user
 
 
 class LoginSerializer(BaseLoginSerializer):
-    """Customização futura do login. Por ora, herda tudo direto."""
     pass
 
 
