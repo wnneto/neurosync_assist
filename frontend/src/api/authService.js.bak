@@ -1,0 +1,64 @@
+// src/api/authService.js
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000';
+const api = axios.create({
+  baseURL: API_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Adiciona token automaticamente às requisições
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Token ${token}`;
+  }
+  return config;
+});
+
+export const registerUser = async (userData) => {
+  // ... (mantenha sua implementação existente)
+};
+
+export const loginUser = async (credentials) => {
+  try {
+    const response = await api.post('/dj-rest-auth/login/', credentials);
+    return {
+      key: response.data.key,
+      user: {
+        email: credentials.email,
+        // Adicione outros dados do usuário conforme retornado pelo backend
+      }
+    };
+  } catch (error) {
+    let errorMessage = 'Credenciais inválidas';
+    if (error.response?.data?.non_field_errors) {
+      errorMessage = error.response.data.non_field_errors.join(' ');
+    }
+    throw new Error(errorMessage);
+  }
+};
+
+export const verifyToken = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+    
+    const response = await api.get('/dj-rest-auth/user/');
+    return !!response.data.pk; // Verifica se tem primary key do usuário
+  } catch (error) {
+    console.error('Token verification failed:', error);
+    return false;
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    await api.post('/dj-rest-auth/logout/');
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
+};

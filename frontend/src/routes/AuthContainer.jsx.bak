@@ -1,0 +1,12 @@
+import { Routes, Route } from 'react-router-dom';
+import Login from '@/pages/contas/Login';
+import Registro from '@/pages/contas/Register';
+
+export default function AuthContainer() {
+  return (
+    <Routes>
+      <Route path="/login" element={<RedirectWithMessage to="/auth/login" />} />
+      <Route path="/register" element={<Registro />} />
+    </Routes>
+  );
+}

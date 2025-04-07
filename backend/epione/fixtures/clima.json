@@ -1,0 +1,26 @@
+[
+    {
+      "model": "epione.fatorclimatico",
+      "pk": 1,
+      "fields": {
+        "nome": "tempo_seco",
+        "descricao": "Baixa umidade do ar (<30%)"
+      }
+    },
+    {
+      "model": "epione.fatorclimatico",
+      "pk": 2,
+      "fields": {
+        "nome": "alta_umidade",
+        "descricao": "Umidade relativa do ar >70%"
+      }
+    },
+    {
+      "model": "epione.fatorclimatico",
+      "pk": 3,
+      "fields": {
+        "nome": "frio_intenso",
+        "descricao": "Temperaturas abaixo de 10°C"
+      }
+    }
+  ]

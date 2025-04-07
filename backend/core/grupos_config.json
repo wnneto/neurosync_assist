@@ -1,0 +1,30 @@
+{
+    "medico": [
+      "consultas.view_consulta",
+      "consultas.add_relatorioconsulta",
+      "consultas.change_relatorioconsulta",
+      "users.view_dadosmedicos",
+      "users.view_exame",
+      "users.view_historicofamiliar"
+    ],
+    "colaborador": [
+      "consultas.view_consulta",
+      "consultas.change_consulta",
+      "consultas.view_ticketreembolso",
+      "consultas.change_ticketreembolso",
+      "consultas.view_ticketconciliacaofinanceira",
+      "consultas.change_ticketconciliacaofinanceira",
+      "consultas.view_repassemedico"
+    ],
+    "paciente": [
+      "consultas.view_consulta",
+      "consultas.add_consulta",
+      "consultas.delete_consulta",
+      "users.view_customuser",
+      "users.change_customuser",
+      "users.add_exame",
+      "users.view_exame"
+    ],
+    "admin": ["*"]
+  }
+  

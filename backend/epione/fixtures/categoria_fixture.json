@@ -1,0 +1,162 @@
+[
+  {
+    "model": "epione.categoria",
+    "pk": 1,
+    "fields": {
+      "nome": "geral",
+      "descricao": "Sintomas sistêmicos inespecíficos (ex.: febre, fadiga, perda de peso)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 2,
+    "fields": {
+      "nome": "respiratorio",
+      "descricao": "Sintomas relacionados ao sistema respiratório (ex.: tosse, dispneia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 3,
+    "fields": {
+      "nome": "neurologico",
+      "descricao": "Sintomas do sistema nervoso central ou periférico (ex.: cefaleia, convulsões)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 4,
+    "fields": {
+      "nome": "cardiovascular",
+      "descricao": "Sintomas cardíacos ou vasculares (ex.: dor torácica, palpitações)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 5,
+    "fields": {
+      "nome": "gastrointestinal",
+      "descricao": "Sintomas do trato digestivo (ex.: náusea, dor abdominal)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 6,
+    "fields": {
+      "nome": "musculoesqueletico",
+      "descricao": "Sintomas musculares, ósseos ou articulares (ex.: artralgia, mialgia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 7,
+    "fields": {
+      "nome": "dermatologico",
+      "descricao": "Sintomas da pele e anexos (ex.: eritema, prurido)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 8,
+    "fields": {
+      "nome": "psiquiatrico",
+      "descricao": "Sintomas de saúde mental (ex.: ansiedade, insônia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 9,
+    "fields": {
+      "nome": "oftalmologico",
+      "descricao": "Sintomas oculares (ex.: fotofobia, diplopia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 10,
+    "fields": {
+      "nome": "otorrinolaringologico",
+      "descricao": "Sintomas de ouvido, nariz ou garganta (ex.: otalgia, epistaxe)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 11,
+    "fields": {
+      "nome": "endocrinologico",
+      "descricao": "Sintomas de desordens hormonais (ex.: poliúria, ginecomastia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 12,
+    "fields": {
+      "nome": "urinario",
+      "descricao": "Sintomas do trato urinário (ex.: disúria, hematúria)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 13,
+    "fields": {
+      "nome": "ginecologico",
+      "descricao": "Sintomas do sistema reprodutor feminino (ex.: dispareunia, amenorreia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 14,
+    "fields": {
+      "nome": "nefrologico",
+      "descricao": "Sintomas renais (ex.: oligúria, edema)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 15,
+    "fields": {
+      "nome": "oncologico",
+      "descricao": "Sintomas associados a neoplasias (ex.: linfadenomegalia, emagrecimento)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 16,
+    "fields": {
+      "nome": "hematologico",
+      "descricao": "Sintomas do sangue e coagulação (ex.: petéquias, icterícia)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 17,
+    "fields": {
+      "nome": "reumatologico",
+      "descricao": "Sintomas de doenças autoimunes (ex.: rigidez matinal, artrite)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 18,
+    "fields": {
+      "nome": "alergologico",
+      "descricao": "Sintomas de reações alérgicas (ex.: urticária, angioedema)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 19,
+    "fields": {
+      "nome": "infeccioso",
+      "descricao": "Sintomas de processos infecciosos (ex.: febre, sudorese noturna)"
+    }
+  },
+  {
+    "model": "epione.categoria",
+    "pk": 20,
+    "fields": {
+      "nome": "toxicologico",
+      "descricao": "Sintomas por exposição a toxinas (ex.: confusão, tremores)"
+    }
+  }
+]

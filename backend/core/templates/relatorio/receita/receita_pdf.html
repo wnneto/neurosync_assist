@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    h1 { text-align: center; }
+    .assinatura { margin-top: 4em; text-align: right; }
+  </style>
+</head>
+<body>
+  <h1>Receita Médica</h1>
+
+  <p><strong>Paciente:</strong> {{ consulta.paciente.nome }}</p>
+  <p><strong>Médico:</strong> {{ consulta.medico.nome }}</p>
+  <p><strong>Data:</strong> {{ consulta.data_hora|date:"d/m/Y" }}</p>
+
+  <hr style="margin: 2em 0;">
+
+  <div>
+    <p>{{ receita.conteudo|linebreaks }}</p>
+  </div>
+
+  <div class="assinatura">
+    <p>______________________________</p>
+    <p>{{ consulta.medico.nome }}</p>
+  </div>
+</body>
+</html>
