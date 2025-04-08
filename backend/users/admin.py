@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
 
-    list_display = ('email', 'nome', 'cpf', 'telefone', 'grupo', 'is_staff', 'is_active', 'format_date_joined')
+    list_display = ('email', 'nome', 'cpf', 'telefone', 'grupo', 'is_staff', 'is_active', "aceitou_termos", 'format_date_joined')
     list_filter = ('is_staff', 'is_active', 'sexo', 'grupo')
     search_fields = ('email', 'cpf', 'nome')
     ordering = ('email',)
@@ -39,15 +39,18 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('Permissões', {'fields': ('grupo', 'is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions')}),
         ('Datas', {'fields': ('last_login', 'date_joined')}),
+        ("Aceite Legal", {
+            "fields": ("aceitou_termos", "data_aceite_termo", "versao_termo")
+        }),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 'password1', 'password2',
-                'nome', 'cpf', 'telefone', 'grupo',
-                'is_staff', 'is_active'
+                "email", "password1", "password2", 
+                "nome", "sexo", "cpf", "is_active", 
+                "is_staff", "is_superuser"
             ),
         }),
     )

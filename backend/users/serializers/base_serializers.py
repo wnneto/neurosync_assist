@@ -27,6 +27,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     bairro = serializers.CharField(required=True)
     cidade = serializers.CharField(required=True)
     estado = serializers.CharField(required=True)
+    aceitou_termos = serializers.BooleanField(required=True)
     pais = serializers.CharField(required=False, default='Brasil')
 
     username = None  # remove o campo username
@@ -71,7 +72,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         campos_personalizados = [
             'nome', 'sexo', 'data_nascimento', 'telefone', 'cpf',
             'cep', 'logradouro', 'numero', 'complemento',
-            'bairro', 'cidade', 'estado', 'pais'
+            'bairro', 'cidade', 'estado', 'pais', 'aceitou_termos'
         ]
         for campo in campos_personalizados:
             data[campo] = self.validated_data.get(campo)
@@ -95,6 +96,8 @@ class CustomRegisterSerializer(RegisterSerializer):
             bairro=cleaned_data['bairro'],
             cidade=cleaned_data['cidade'],
             estado=cleaned_data['estado'],
+            aceitou_termos=cleaned_data['aceitou_termos'],
+            versao_termo="1.0",
             pais=cleaned_data.get('pais', 'Brasil'),
         )
 
@@ -121,9 +124,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'email', 'nome', 'sexo', 'data_nascimento', 'telefone', 'cpf',
             'cep', 'logradouro', 'numero', 'complemento',
-            'bairro', 'cidade', 'estado', 'pais', 'date_joined'
+            'bairro', 'cidade', 'estado', 'pais', 'date_joined', 'data_aceite_termo',
+            'versao_termo'
         ]
-        read_only_fields = ['id', 'email', 'date_joined']
+        read_only_fields = ['id', 'email', 'date_joined', 'data_aceite_termo', 'versao_termo']
 
 
 class UsuarioSerializer(serializers.ModelSerializer):

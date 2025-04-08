@@ -92,46 +92,50 @@ const Etapa2Endereco = ({
         )}
       </div>
 
-      {/* Cidade e Estado */}
-      <div className="form-grid">
-        <div className={`field-group ${errors.cidade ? 'input-error' : ''}`}>
-          <select
-            className="input"
-            value={form.cidade}
-            onChange={(e) => handleChange('cidade', e.target.value)}
-            disabled={!ufSelecionado || lockAutoFields}
-          >
-            <option value="">Selecione a Cidade *</option>
-            {cidades.map((cidade) => (
-              <option key={cidade.id} value={cidade.nome}>
-                {cidade.nome}
-              </option>
-            ))}
-          </select>
-          {errors.cidade && (
-            <span className="error-message">{errorMessages.cidade}</span>
-          )}
-        </div>
+{/* Estado e Cidade */}
+<div className="form-grid">
+  {/* ESTADO */}
+  <div className={`field-group ${errors.estado ? 'input-error' : ''}`}>
+    <select
+      className="input"
+      value={form.estado}
+      onChange={(e) => handleChange('estado', e.target.value)}
+      disabled={lockAutoFields}
+    >
+      <option value="" disabled hidden>Selecione o Estado *</option>
+      {estados.map(estado => (
+        <option key={estado.sigla} value={estado.nome}>
+          {estado.nome}
+        </option>
+      ))}
+    </select>
+    <span className="floating-label">Estado *</span>
+    {errors.estado && (
+      <span className="error-message">{errorMessages.estado}</span>
+    )}
+  </div>
 
-        <div className={`field-group ${errors.estado ? 'input-error' : ''}`}>
-          <select
-            className="input"
-            value={form.estado}
-            onChange={(e) => handleChange('estado', e.target.value)}
-            disabled={lockAutoFields}
-          >
-            <option value="">Selecione o Estado *</option>
-            {estados.map(estado => (
-              <option key={estado.sigla} value={estado.nome}>
-                {estado.nome}
-              </option>
-            ))}
-          </select>
-          {errors.estado && (
-            <span className="error-message">{errorMessages.estado}</span>
-          )}
-        </div>
-      </div>
+  {/* CIDADE */}
+  <div className={`field-group ${errors.cidade ? 'input-error' : ''}`}>
+    <select
+      className="input"
+      value={form.cidade}
+      onChange={(e) => handleChange('cidade', e.target.value)}
+      disabled={!ufSelecionado || lockAutoFields}
+    >
+      <option value="" disabled hidden>Selecione a Cidade *</option>
+      {cidades.map((cidade) => (
+        <option key={cidade.id} value={cidade.nome}>
+          {cidade.nome}
+        </option>
+      ))}
+    </select>
+    <span className="floating-label">Cidade *</span>
+    {errors.cidade && (
+      <span className="error-message">{errorMessages.cidade}</span>
+    )}
+  </div>
+</div>
     </>
   );
 };

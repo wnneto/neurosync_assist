@@ -20,6 +20,7 @@ export const registerUser = async (userData) => {
       bairro: userData.bairro,
       cidade: userData.cidade,
       estado: userData.estado,
+      aceitou_termos: userData.aceitou_termos,
       pais: userData.pais || 'Brasil'
     });
 

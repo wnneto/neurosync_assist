@@ -324,3 +324,105 @@ select.input:disabled {
     font-size: 15px;
   }
 }
+
+.input-with-icon {
+  position: relative;
+}
+.eye-btn {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #888;
+}
+.checkbox-wrapper {
+  margin-top: 20px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.texto-termos a {
+  color: #2a77d4;
+  text-decoration: underline;
+}
+.senha-group {
+  position: relative;
+  margin-bottom: 24px; /* espaço extra fixo para erro */
+}
+
+.senha-group .input {
+  padding-right: 40px; /* espaço pro olho */
+}
+
+.eye-inside {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
+  z-index: 2;
+  padding: 4px;
+}
+
+.eye-inside:hover {
+  color: #000;
+}
+
+.senha-group .error-message {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: red;
+}
+/* Estilo para campos com erro */
+.input-error .input {
+  border-color: #ff3860;
+}
+
+/* Mensagem de erro */
+.error-message {
+  color: #ff3860;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+/* Efeito de shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Estilo para campos desabilitados durante o auto-preenchimento */
+.auto-fill-disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.link-termo {
+  background: none;
+  border: none;
+  color: #0055cc;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.link-termo:hover {
+  color: #003399;
+}

@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import ModalTermoPrivacidade from '@/components/modals/ModalTermoPrivacidade';
 
 const Etapa3Acesso = ({ form, errors, errorMessages, handleChange }) => {
+  const [senhasVisiveis, setSenhasVisiveis] = useState(false);
+
+  const toggleVisibilidadeSenhas = () => {
+    setSenhasVisiveis(prev => !prev);
+  };
+
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+
   return (
     <>
       {/* Email */}
@@ -18,49 +29,67 @@ const Etapa3Acesso = ({ form, errors, errorMessages, handleChange }) => {
         )}
       </div>
 
-      {/* Senha */}
-      <div className={`field-group ${errors.password ? 'input-error' : ''}`}>
+
+   {/* Senha */}
+   <div className={`field-group senha-group ${errors.password ? 'input-error' : ''}`}>
         <input
           className="input"
           placeholder=" "
-          type="password"
+          type={senhasVisiveis ? "text" : "password"}
           value={form.password}
           onChange={(e) => handleChange('password', e.target.value)}
         />
         <span className="floating-label">Senha *</span>
-        {errors.password && (
-          <span className="error-message">{errorMessages.password}</span>
-        )}
-        <div className="password-rules">
-          <small>A senha deve conter:</small>
-          <ul>
-            <li className={form.password.length >= 8 ? 'strong' : 'weak'}>
-              Mínimo 8 caracteres
-            </li>
-            <li className={/[a-zA-Z]/.test(form.password) && /[0-9]/.test(form.password) ? 'strong' : 'weak'}>
-              Letras e números
-            </li>
-            <li className={/[!@#$%^&*]/.test(form.password) ? 'strong' : 'weak'}>
-              Caracteres especiais (opcional)
-            </li>
-          </ul>
-        </div>
+        <span className="eye-inside" onClick={toggleVisibilidadeSenhas}>
+          {senhasVisiveis ? <EyeOff size={20} /> : <Eye size={20} />}
+        </span>
+        {errors.password && <span className="error-message">{errorMessages.password}</span>}
       </div>
 
-      {/* Confirmação de Senha */}
-      <div className={`field-group ${errors.password2 ? 'input-error' : ''}`}>
+      {/* Confirmar Senha */}
+      <div className={`field-group senha-group ${errors.password2 ? 'input-error' : ''}`}>
         <input
           className="input"
           placeholder=" "
-          type="password"
+          type={senhasVisiveis ? "text" : "password"}
           value={form.password2}
           onChange={(e) => handleChange('password2', e.target.value)}
         />
-        <span className="floating-label">Confirme sua senha *</span>
-        {errors.password2 && (
-          <span className="error-message">{errorMessages.password2}</span>
-        )}
+        <span className="floating-label">Confirmar Senha *</span>
+        <span className="eye-inside" onClick={toggleVisibilidadeSenhas}>
+          {senhasVisiveis ? <EyeOff size={20} /> : <Eye size={20} />}
+        </span>
+        {errors.password2 && <span className="error-message">{errorMessages.password2}</span>}
       </div>
+
+
+{/* Checkbox de termos */}
+<div className={`field-group checkbox-group ${errors.aceitou_termos ? 'input-error' : ''}`}>
+  <label className="checkbox-label">
+    <input
+      type="checkbox"
+      checked={form.aceitou_termos}
+      onChange={(e) => handleChange('aceitou_termos', e.target.checked)}
+    />
+    <span className="checkbox-text">
+      Declaro que li e aceito os{' '}
+      <button
+        type="button"
+        className="link-termo"
+        onClick={() => setMostrarModal(true)}
+      >
+        Termos
+      </button>
+    </span>
+  </label>
+
+  {errors.aceitou_termos && (
+    <span className="error-message">{errorMessages.aceitou_termos}</span>
+  )}
+</div>
+
+<ModalTermoPrivacidade isOpen={mostrarModal} onClose={() => setMostrarModal(false)} />
+
     </>
   );
 };

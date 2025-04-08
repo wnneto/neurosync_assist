@@ -34,7 +34,8 @@ export default function CadastroUsuario() {
     email: "",
     password: "",
     password2: "",
-    grupo: "paciente"
+    grupo: "paciente",
+    aceitou_termos: false,
   });
 
   const [errors, setErrors] = useState({
@@ -159,21 +160,34 @@ export default function CadastroUsuario() {
     return true;
   };
 
-  const validarDataNascimento = (data) => {
+  const validarDataNascimento = (dataStr) => {
     const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    if (!regex.test(data)) return false;
+    if (!regex.test(dataStr)) return false;
     
-    const [dia, mes, ano] = data.split('/').map(Number);
+    const [dia, mes, ano] = dataStr.split('/').map(Number);
     const dataObj = new Date(ano, mes - 1, dia);
     const hoje = new Date();
     
-    return (
+    // Verifica se a data é válida (evita 31/02, etc)
+    const dataValida = (
       dataObj.getDate() === dia &&
       dataObj.getMonth() === mes - 1 &&
-      dataObj.getFullYear() === ano &&
-      dataObj <= hoje &&
-      ano > 1900
+      dataObj.getFullYear() === ano
     );
+    
+    if (!dataValida) return false;
+    
+    // Verifica se não é data futura
+    if (dataObj > hoje) return false;
+    
+    // Verifica se tem pelo menos 18 anos
+    const idadeMinima = new Date(
+      hoje.getFullYear() - 18,
+      hoje.getMonth(),
+      hoje.getDate()
+    );
+    
+    return dataObj <= idadeMinima;
   };
 
   const validarSenha = (senha) => {
@@ -188,9 +202,9 @@ export default function CadastroUsuario() {
   };
 
   const handleChange = (name, value) => {
-
     if (name === 'nome') {
       value = value
+        .replace(/[^a-zA-ZÀ-ÿçÇ\s\-´`~¨]/g, '') // permite letras acentuadas, ç, espaço e hífen
         .toLowerCase()
         .split(' ')
         .map(palavra =>
@@ -203,18 +217,77 @@ export default function CadastroUsuario() {
         )
         .join(' ');
     }
+    
+
+  // ======== LOGRADOURO, BAIRRO, COMPLEMENTO ========
+  if (['logradouro', 'bairro', 'complemento'].includes(name)) {
+    value = value
+      .toLowerCase()
+      .replace(/[^a-zA-ZÀ-ÿçÇ0-9\s\-\/ºª.]/g, '') // letras, números, acento, hífen, barra, º, ª, ponto
+      .split(' ')
+      .map(palavra =>
+        palavra
+          .split('-')
+          .map(parte => parte.charAt(0).toUpperCase() + parte.slice(1))
+          .join('-')
+      )
+      .join(' ');
+  }
   
-    // Telefone com +55 automático
+    if (name === 'numero') {
+      value = value.replace(/[^a-zA-Z0-9\-\/.]/g, ''); // número/letra/hífen/barra/ponto
+    }
+  
+    if (name === 'email') {
+      value = value
+        .toLowerCase()
+        .replace(/[^a-z0-9@._\-]/g, ''); // limpa símbolos inválidos
+    }
+  
     if (name === 'telefone') {
       if (!value.startsWith('+55')) {
         value = '+55' + value.replace(/^(\+)?(55)?/, '');
       }
     }
-
+  
+    if (name === 'data_nascimento') {
+      // Remove tudo que não é dígito
+      const onlyNums = value.replace(/\D/g, '');
+      
+      // Aplica validações em tempo real
+      let formattedValue = '';
+      
+      for (let i = 0; i < onlyNums.length; i++) {
+        // Validação do dia (não pode começar com >3)
+        if (i === 0 && onlyNums[i] > 3) continue;
+        
+        // Validação do dia completo (não pode ser >31)
+        if (i === 1) {
+          const day = parseInt(onlyNums[0] + onlyNums[1]);
+          if (day > 31) continue;
+        }
+        
+        // Validação do mês (não pode começar com >1)
+        if (i === 2 && onlyNums[i] > 1) continue;
+        
+        // Validação do mês completo (não pode ser >12)
+        if (i === 3) {
+          const month = parseInt(onlyNums[2] + onlyNums[3]);
+          if (month > 12) continue;
+        }
+        
+        // Adiciona as barras na posição correta
+        if (i === 2 || i === 4) formattedValue += '/';
+        formattedValue += onlyNums[i];
+      }
+      
+      value = formattedValue;
+    }
+    
+  
     setForm(prev => ({ ...prev, [name]: value }));
     setErrors(prev => ({ ...prev, [name]: false }));
-    
-    // Validações em tempo real
+  
     switch (name) {
       case 'cpf':
         if (value.replace(/\D/g, '').length === 11 && !validarCPF(value)) {
@@ -268,9 +341,19 @@ export default function CadastroUsuario() {
         isValid = false;
       } else if (!validarDataNascimento(form.data_nascimento)) {
         newErrors.data_nascimento = true;
-        newErrorMessages.data_nascimento = 'Data inválida';
+        const [dia, mes, ano] = form.data_nascimento.split('/').map(Number);
+        const dataNasc = new Date(ano, mes - 1, dia);
+        const hoje = new Date();
+        const idadeMinima = new Date(hoje.getFullYear() - 18, hoje.getMonth(), hoje.getDate());
+        
+        if (dataNasc > idadeMinima) {
+          newErrorMessages.data_nascimento = 'Cadastro permitido apenas para maiores de 18 anos (Art. 2º da Lei nº 10.406/2002)';
+        } else {
+          newErrorMessages.data_nascimento = 'Data inválida. Por favor, digite uma data válida no formato DD/MM/AAAA';
+        }
         isValid = false;
       }
+
       if (!form.telefone.replace(/\D/g, '')) {
         newErrors.telefone = true;
         newErrorMessages.telefone = 'Telefone é obrigatório';
@@ -344,6 +427,12 @@ export default function CadastroUsuario() {
         newErrorMessages.password2 = 'As senhas não coincidem';
         isValid = false;
       }
+      // ✅ Validação do checkbox dos Termos
+      if (!form.aceitou_termos) {
+        newErrors.aceitou_termos = true;
+        newErrorMessages.aceitou_termos = 'Você precisa aceitar os Termos';
+        isValid = false;
+      }
     }
 
     setErrors(newErrors);
@@ -363,6 +452,11 @@ export default function CadastroUsuario() {
     if (step < 3) {
       setStep(step + 1);
       setIsSubmitting(false);
+      return;
+    }
+
+    if (name === 'aceitou_termos') {
+      setForm(prev => ({ ...prev, aceitou_termos: value }));
       return;
     }
 

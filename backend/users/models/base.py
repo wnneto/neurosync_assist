@@ -48,6 +48,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     pais = models.CharField(max_length=100, default='Brasil')
     telefone = models.CharField(max_length=20)
     cpf = models.CharField(max_length=14, unique=True)
+    aceitou_termos = models.BooleanField(default=False)
+    data_aceite_termo = models.DateTimeField(default=timezone.now)
+    versao_termo = models.CharField(max_length=10, default="1.0")
 
     grupo = models.CharField(max_length=20, choices=GRUPO_CHOICES, default='paciente')
 
