@@ -1,0 +1,211 @@
+import { useState, Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { X, ArrowRight, Brain, User, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+
+// Componente de Header reutilizável
+const Header = ({ onLoginClick }) => (
+  <header className="p-6 flex justify-between items-center max-w-7xl mx-auto w-full">
+    <div className="flex items-center space-x-2">
+      <Brain className="w-8 h-8 text-indigo-600" />
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        NeuralSync
+      </h1>
+    </div>
+    <Button 
+      onClick={onLoginClick} 
+      className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-indigo-300"
+    >
+      Acessar Plataforma
+      <ArrowRight className="ml-2 w-4 h-4" />
+    </Button>
+  </header>
+);
+
+// Componente de Footer reutilizável
+const Footer = () => (
+  <main className="relative max-w-7xl mx-auto px-6 py-4 min-h-[calc(100vh-180px)]">
+    <div className="max-w-7xl mx-auto px-2">
+      <p>NeuralSync © {new Date().getFullYear()} - Todos os direitos reservados.</p>
+      <div className="flex justify-center space-x-4 mt-1">
+        <a href="#" className="text-gray-400 hover:text-indigo-100 transition">Termos</a>
+        <a href="#" className="text-gray-400 hover:text-indigo-100 transition">Privacidade</a>
+        <a href="#" className="text-gray-400 hover:text-indigo-100 transition">Contato</a>
+      </div>
+    </div>
+  </main>
+);
+
+export default function Home() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  return (
+    <div className="relative min-h-screen bg-gray-50">
+      {/* Adicione isso ao seu CSS global para remover o background */}
+      <style jsx global>{`
+        body {
+          background: #f9fafb !important;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+      `}</style>
+
+      <Header onLoginClick={() => setIsLoginOpen(true)} />
+
+      <main className="relative max-w-7xl mx-auto px-6 py-12 min-h-[calc(100vh-180px)]">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Revolucionando a <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">neurociência</span>
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Conectando pacientes e médicos com tecnologia de ponta para um cuidado neurológico completo e seguro.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Paciente",
+              icon: <User className="w-8 h-8 text-indigo-600" />,
+              description: "Agende, acompanhe e compartilhe seus exames com facilidade.",
+              bg: "from-indigo-50 to-white"
+            },
+            {
+              title: "Médico",
+              icon: <Brain className="w-8 h-8 text-purple-600" />,
+              description: "Visualize sua agenda, inicie atendimentos e gere relatórios.",
+              bg: "from-purple-50 to-white"
+            },
+            {
+              title: "Segurança",
+              icon: <Shield className="w-8 h-8 text-blue-600" />,
+              description: "Todos os dados protegidos com criptografia e autenticação JWT.",
+              bg: "from-blue-50 to-white"
+            }
+          ].map((card, index) => (
+            <div 
+              key={index}
+              className={`relative bg-gradient-to-b ${card.bg} rounded-2xl p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl border border-gray-100 overflow-hidden`}
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-100 rounded-full opacity-0 transition-opacity duration-300"
+                style={{ opacity: hoveredCard === index ? 0.2 : 0 }}
+              />
+              <div className="flex items-center justify-center w-16 h-16 bg-white rounded-xl shadow-sm mb-6">
+                {card.icon}
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">{card.title}</h3>
+              <p className="text-gray-600">{card.description}</p>
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 transition-opacity duration-300"
+                style={{ opacity: hoveredCard === index ? 1 : 0 }}
+              />
+            </div>
+          ))}
+        </div>
+      </main>
+
+      <Footer />
+
+      {/* Modal de Login Premium */}
+      <Transition appear show={isLoginOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={() => setIsLoginOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 backdrop-blur-none"
+            enterTo="opacity-100 backdrop-blur-md"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 backdrop-blur-md"
+            leaveTo="opacity-0 backdrop-blur-none"
+          >
+            <div className="fixed inset-0 bg-black/20 backdrop-blur-md" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 flex items-center justify-center p-4">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95 translate-y-10"
+              enterTo="opacity-100 scale-100 translate-y-0"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100 translate-y-0"
+              leaveTo="opacity-0 scale-95 translate-y-10"
+            >
+              <Dialog.Panel className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+                <button
+                  onClick={() => setIsLoginOpen(false)}
+                  className="absolute top-4 right-4 p-1 rounded-full bg-gray-100 text-gray-400 hover:text-red-500 hover:bg-gray-200 transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                
+                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white">
+                  <Dialog.Title className="text-2xl font-bold">Bem-vindo à NeuralSync</Dialog.Title>
+                  <p className="text-indigo-100">Sua plataforma de neurociência integrada</p>
+                </div>
+                
+                <div className="p-6">
+                  <form className="space-y-6">
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Email profissional
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="seu@email.com"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between items-center mb-1">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                          Senha
+                        </label>
+                        <a href="#" className="text-sm text-indigo-600 hover:underline">
+                          Esqueceu a senha?
+                        </a>
+                      </div>
+                      <input
+                        type="password"
+                        id="password"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="••••••••"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Acessar minha conta
+                    </button>
+                  </form>
+                </div>
+                
+                <div className="px-6 pb-6 text-center">
+                  <p className="text-sm text-gray-600">
+                    Novo na plataforma?{' '}
+                    <button 
+                      className="font-medium text-indigo-600 hover:underline"
+                      onClick={() => {
+                        setIsLoginOpen(false);
+                        // Adicione lógica para abrir modal de registro se necessário
+                      }}
+                    >
+                      Criar conta
+                    </button>
+                  </p>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+    </div>
+  );
+}

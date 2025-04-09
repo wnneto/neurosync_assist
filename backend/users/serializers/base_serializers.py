@@ -36,13 +36,11 @@ class CustomRegisterSerializer(RegisterSerializer):
         return ' '.join(word.capitalize() for word in value.strip().split())
 
     def validate_data_nascimento(self, value):
-        try:
-            if '/' in value:
-                return datetime.strptime(value, '%d/%m/%Y').date()
-            else:
-                return datetime.strptime(value, '%Y-%m-%d').date()
-        except ValueError:
-            raise serializers.ValidationError("Formato de data inválido. Use DD/MM/YYYY ou YYYY-MM-DD.")
+        if isinstance(value, str) and '/' in value:
+            dia, mes, ano = value.split('/')
+            return f'{ano}-{mes}-{dia}'
+        return value  # Já é datetime.date
+
 
     def validate_cpf(self, value):
         cpf_formatado = formatar_cpf(value)

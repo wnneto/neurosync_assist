@@ -1,0 +1,767 @@
+[
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 1,
+    "fields": {
+      "codigo": "febre",
+      "descricao": "Temperatura >37.8°C persistente",
+      "categorias": [
+        19,
+        1,
+        16,
+        15,
+        17
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 2,
+    "fields": {
+      "codigo": "calafrios",
+      "descricao": "Sensação de frio com tremores",
+      "categorias": [
+        19,
+        1,
+        16
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 3,
+    "fields": {
+      "codigo": "sudorese_noturna",
+      "descricao": "Suor excessivo durante o sono",
+      "categorias": [
+        15,
+        19,
+        1
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 4,
+    "fields": {
+      "codigo": "perda_peso",
+      "descricao": "Redução involuntária >5% em 1 mês",
+      "categorias": [
+        15,
+        11,
+        19,
+        5
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 5,
+    "fields": {
+      "codigo": "astenia",
+      "descricao": "Fraqueza muscular generalizada",
+      "categorias": [
+        1,
+        11,
+        3,
+        14
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 6,
+    "fields": {
+      "codigo": "tosse",
+      "descricao": "Tosse seca ou produtiva",
+      "categorias": [
+        2,
+        19,
+        1,
+        15
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 7,
+    "fields": {
+      "codigo": "dispneia",
+      "descricao": "Dificuldade para respirar",
+      "categorias": [
+        2,
+        4,
+        6,
+        14
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 8,
+    "fields": {
+      "codigo": "hemoptise",
+      "descricao": "Expectoração com sangue",
+      "categorias": [
+        2,
+        16,
+        15,
+        5
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 9,
+    "fields": {
+      "codigo": "dor_toracica",
+      "descricao": "Dor ou desconforto na região torácica",
+      "categorias": [
+        2,
+        4,
+        6,
+        8
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 10,
+    "fields": {
+      "codigo": "palpitacoes",
+      "descricao": "Percepção anormal dos batimentos cardíacos",
+      "categorias": [
+        4,
+        11,
+        8
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 11,
+    "fields": {
+      "codigo": "edema_membros",
+      "descricao": "Inchaço em membros inferiores/superiores",
+      "categorias": [
+        4,
+        14,
+        11,
+        1
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 12,
+    "fields": {
+      "codigo": "cefaleia",
+      "descricao": "Dor de cabeça intensa",
+      "categorias": [
+        3,
+        1,
+        19,
+        20
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 13,
+    "fields": {
+      "codigo": "vertigem",
+      "descricao": "Sensação de tontura rotatória",
+      "categorias": [
+        3,
+        9,
+        10
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 14,
+    "fields": {
+      "codigo": "parestesias",
+      "descricao": "Formigamento ou dormência",
+      "categorias": [
+        3,
+        6,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 15,
+    "fields": {
+      "codigo": "convulsoes",
+      "descricao": "Episódios de atividade motora anormal",
+      "categorias": [
+        3,
+        20,
+        14,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 16,
+    "fields": {
+      "codigo": "nausea",
+      "descricao": "Sensação de enjoo",
+      "categorias": [
+        5,
+        1,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 17,
+    "fields": {
+      "codigo": "pirose",
+      "descricao": "Sensação de queimação retroesternal",
+      "categorias": [
+        5,
+        4,
+        8
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 18,
+    "fields": {
+      "codigo": "hematemese",
+      "descricao": "Vômito com sangue",
+      "categorias": [
+        5,
+        16,
+        15
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 19,
+    "fields": {
+      "codigo": "dor_abdominal",
+      "descricao": "Dor em qualquer quadrante abdominal",
+      "categorias": [
+        5,
+        3,
+        14
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 20,
+    "fields": {
+      "codigo": "mialgia",
+      "descricao": "Dor muscular localizada ou difusa",
+      "categorias": [
+        6,
+        17,
+        19,
+        1
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 21,
+    "fields": {
+      "codigo": "artralgia",
+      "descricao": "Dor articular",
+      "categorias": [
+        6,
+        17,
+        19
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 22,
+    "fields": {
+      "codigo": "limitação_movimentos",
+      "descricao": "Dificuldade para movimentar articulação",
+      "categorias": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 23,
+    "fields": {
+      "codigo": "eritema",
+      "descricao": "Vermelhidão cutânea",
+      "categorias": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 24,
+    "fields": {
+      "codigo": "prurido",
+      "descricao": "Coceira intensa",
+      "categorias": [
+        7,
+        20
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 25,
+    "fields": {
+      "codigo": "lesoes_bolhosas",
+      "descricao": "Bolhas na pele",
+      "categorias": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 26,
+    "fields": {
+      "codigo": "ansiedade",
+      "descricao": "Nervosismo ou apreensão excessiva",
+      "categorias": [
+        8
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 27,
+    "fields": {
+      "codigo": "insonia",
+      "descricao": "Dificuldade para iniciar ou manter o sono",
+      "categorias": [
+        8,
+        1
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 28,
+    "fields": {
+      "codigo": "fotopsia",
+      "descricao": "Percepção de flashes luminosos",
+      "categorias": [
+        9,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 29,
+    "fields": {
+      "codigo": "diplopia",
+      "descricao": "Visão dupla",
+      "categorias": [
+        9,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 30,
+    "fields": {
+      "codigo": "otalgia",
+      "descricao": "Dor de ouvido",
+      "categorias": [
+        10
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 31,
+    "fields": {
+      "codigo": "tinnitus",
+      "descricao": "Percepção de zumbido nos ouvidos",
+      "categorias": [
+        10,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 32,
+    "fields": {
+      "codigo": "poliuria",
+      "descricao": "Aumento do volume urinário",
+      "categorias": [
+        12,
+        14
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 33,
+    "fields": {
+      "codigo": "disuria",
+      "descricao": "Dor ou dificuldade para urinar",
+      "categorias": [
+        13
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 34,
+    "fields": {
+      "codigo": "hematura",
+      "descricao": "Sangue visível na urina",
+      "categorias": [
+        13,
+        19
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 35,
+    "fields": {
+      "codigo": "oliguria",
+      "descricao": "Diminuição do volume urinário",
+      "categorias": [
+        14
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 36,
+    "fields": {
+      "codigo": "ginecomastia",
+      "descricao": "Aumento das mamas em homens",
+      "categorias": [
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 37,
+    "fields": {
+      "codigo": "galactorreia",
+      "descricao": "Secreção láctea fora do período puerperal",
+      "categorias": [
+        11,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 38,
+    "fields": {
+      "codigo": "linfadenomegalia",
+      "descricao": "Aumento de linfonodos",
+      "categorias": [
+        19,
+        15
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 39,
+    "fields": {
+      "codigo": "petequias",
+      "descricao": "Pontos hemorrágicos cutâneos",
+      "categorias": [
+        19,
+        7
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 40,
+    "fields": {
+      "codigo": "ictericia",
+      "descricao": "Coloração amarelada da pele/mucosas",
+      "categorias": [
+        5,
+        19
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 41,
+    "fields": {
+      "codigo": "rigidez_nucal",
+      "descricao": "Dificuldade em flexionar o pescoço",
+      "categorias": [
+        3,
+        20
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 42,
+    "fields": {
+      "codigo": "sincope",
+      "descricao": "Perda transitória da consciência",
+      "categorias": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 43,
+    "fields": {
+      "codigo": "tremores",
+      "descricao": "Movimentos involuntários rítmicos",
+      "categorias": [
+        3,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 44,
+    "fields": {
+      "codigo": "afasia",
+      "descricao": "Dificuldade na linguagem",
+      "categorias": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 45,
+    "fields": {
+      "codigo": "disartria",
+      "descricao": "Dificuldade na articulação das palavras",
+      "categorias": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 46,
+    "fields": {
+      "codigo": "hematochezia",
+      "descricao": "Sangue vivo nas fezes",
+      "categorias": [
+        5,
+        19
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 47,
+    "fields": {
+      "codigo": "melena",
+      "descricao": "Fezes enegrecidas e fétidas",
+      "categorias": [
+        5,
+        19
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 48,
+    "fields": {
+      "codigo": "tenesmo",
+      "descricao": "Sensação de evacuação incompleta",
+      "categorias": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 49,
+    "fields": {
+      "codigo": "odinofagia",
+      "descricao": "Dor ao engolir",
+      "categorias": [
+        2,
+        10
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 50,
+    "fields": {
+      "codigo": "epistaxe",
+      "descricao": "Sangramento nasal",
+      "categorias": [
+        10,
+        19
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 51,
+    "fields": {
+      "codigo": "hiperacusia",
+      "descricao": "Sensibilidade aumentada a sons",
+      "categorias": [
+        10,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 52,
+    "fields": {
+      "codigo": "xerostomia",
+      "descricao": "Boca seca",
+      "categorias": [
+        1,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 53,
+    "fields": {
+      "codigo": "ginecorragia",
+      "descricao": "Sangramento vaginal anormal",
+      "categorias": [
+        13
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 54,
+    "fields": {
+      "codigo": "amenorreia",
+      "descricao": "Ausência de menstruação",
+      "categorias": [
+        13,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 55,
+    "fields": {
+      "codigo": "dispareunia",
+      "descricao": "Dor durante relações sexuais",
+      "categorias": [
+        13
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 56,
+    "fields": {
+      "codigo": "fotofobia",
+      "descricao": "Sensibilidade à luz",
+      "categorias": [
+        9,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 57,
+    "fields": {
+      "codigo": "blefaroptose",
+      "descricao": "Queda da pálpebra",
+      "categorias": [
+        9,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 58,
+    "fields": {
+      "codigo": "estrabismo",
+      "descricao": "Desalinhamento ocular",
+      "categorias": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 59,
+    "fields": {
+      "codigo": "hipertricose",
+      "descricao": "Crescimento excessivo de pelos",
+      "categorias": [
+        7,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 60,
+    "fields": {
+      "codigo": "alopecia",
+      "descricao": "Perda de cabelo",
+      "categorias": [
+        7,
+        11
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 61,
+    "fields": {
+      "codigo": "anhidrose",
+      "descricao": "Ausência de sudorese",
+      "categorias": [
+        1,
+        3
+      ]
+    }
+  },
+  {
+    "model": "fichamedica.sintoma",
+    "pk": 62,
+    "fields": {
+      "codigo": "confusao_mental",
+      "descricao": "Desorientação ou alteração cognitiva",
+      "categorias": [
+        3,
+        8,
+        14,
+        20
+      ]
+    }
+  }
+]

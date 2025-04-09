@@ -1,0 +1,162 @@
+[
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 1,
+    "fields": {
+      "nome": "Clínica Médica (Medicina Interna)",
+      "descricao": "Diagnóstico e tratamento de doenças em adultos."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 2,
+    "fields": {
+      "nome": "Pediatria",
+      "descricao": "Cuidados médicos para crianças e adolescentes."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 3,
+    "fields": {
+      "nome": "Ginecologia e Obstetrícia",
+      "descricao": "Saúde da mulher, gestação e parto."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 4,
+    "fields": {
+      "nome": "Cardiologia",
+      "descricao": "Doenças do coração e sistema circulatório."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 5,
+    "fields": {
+      "nome": "Ortopedia e Traumatologia",
+      "descricao": "Doenças e traumas musculoesqueléticos."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 6,
+    "fields": {
+      "nome": "Dermatologia",
+      "descricao": "Doenças da pele, cabelos e unhas."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 7,
+    "fields": {
+      "nome": "Neurologia",
+      "descricao": "Doenças do sistema nervoso."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 8,
+    "fields": {
+      "nome": "Oftalmologia",
+      "descricao": "Doenças dos olhos e visão."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 9,
+    "fields": {
+      "nome": "Otorrinolaringologia",
+      "descricao": "Doenças de ouvido, nariz e garganta."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 10,
+    "fields": {
+      "nome": "Psiquiatria",
+      "descricao": "Diagnóstico e tratamento de transtornos mentais."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 11,
+    "fields": {
+      "nome": "Endocrinologia e Metabologia",
+      "descricao": "Distúrbios hormonais e metabólicos."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 12,
+    "fields": {
+      "nome": "Gastroenterologia",
+      "descricao": "Doenças do aparelho digestivo."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 13,
+    "fields": {
+      "nome": "Urologia",
+      "descricao": "Doenças do trato urinário e sistema reprodutor masculino."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 14,
+    "fields": {
+      "nome": "Nefrologia",
+      "descricao": "Doenças renais e hipertensão arterial."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 15,
+    "fields": {
+      "nome": "Oncologia",
+      "descricao": "Diagnóstico e tratamento do câncer."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 16,
+    "fields": {
+      "nome": "Anestesiologia",
+      "descricao": "Administração de anestesia e cuidados perioperatórios."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 17,
+    "fields": {
+      "nome": "Cirurgia Geral",
+      "descricao": "Procedimentos cirúrgicos abrangentes."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 18,
+    "fields": {
+      "nome": "Radiologia e Diagnóstico por Imagem",
+      "descricao": "Interpretação de exames de imagem."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 19,
+    "fields": {
+      "nome": "Hematologia",
+      "descricao": "Doenças do sangue e órgãos hematopoiéticos."
+    }
+  },
+  {
+    "model": "fichamedica.especialidade",
+    "pk": 20,
+    "fields": {
+      "nome": "Infectologia",
+      "descricao": "Doenças infecciosas e parasitárias."
+    }
+  }
+]

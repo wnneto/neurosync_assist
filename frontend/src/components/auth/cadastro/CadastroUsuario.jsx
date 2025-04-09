@@ -6,6 +6,7 @@ import axios from 'axios';
 import { registerUser } from '@/api/authService';
 import { getEstados, getCidadesPorEstado } from '@/api/ibgeService';
 import { Etapa1DadosPessoais, Etapa2Endereco, Etapa3Acesso, ProgressBar } from '.';
+import Base from "@/layouts/Base";
 import './CadastroUsuario.css';
 
 export default function CadastroUsuario() {
@@ -52,7 +53,8 @@ export default function CadastroUsuario() {
     estado: false,
     email: false,
     password: false,
-    password2: false
+    password2: false,
+    aceitou_termos: false
   });
 
   const [errorMessages, setErrorMessages] = useState({
@@ -69,7 +71,8 @@ export default function CadastroUsuario() {
     estado: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    aceitou_termos: ""
   });
 
   // Carrega estados ao montar o componente
@@ -204,7 +207,7 @@ export default function CadastroUsuario() {
   const handleChange = (name, value) => {
     if (name === 'nome') {
       value = value
-        .replace(/[^a-zA-ZÀ-ÿçÇ\s\-´`~¨]/g, '') // permite letras acentuadas, ç, espaço e hífen
+        .replace(/[^a-zA-ZÀ-ÿçÇ\s\-´`~¨]/g, '')
         .toLowerCase()
         .split(' ')
         .map(palavra =>
@@ -218,30 +221,28 @@ export default function CadastroUsuario() {
         .join(' ');
     }
     
-
-  // ======== LOGRADOURO, BAIRRO, COMPLEMENTO ========
-  if (['logradouro', 'bairro', 'complemento'].includes(name)) {
-    value = value
-      .toLowerCase()
-      .replace(/[^a-zA-ZÀ-ÿçÇ0-9\s\-\/ºª.]/g, '') // letras, números, acento, hífen, barra, º, ª, ponto
-      .split(' ')
-      .map(palavra =>
-        palavra
-          .split('-')
-          .map(parte => parte.charAt(0).toUpperCase() + parte.slice(1))
-          .join('-')
-      )
-      .join(' ');
-  }
-  
+    if (['logradouro', 'bairro', 'complemento'].includes(name)) {
+      value = value
+        .toLowerCase()
+        .replace(/[^a-zA-ZÀ-ÿçÇ0-9\s\-\/ºª.]/g, '')
+        .split(' ')
+        .map(palavra =>
+          palavra
+            .split('-')
+            .map(parte => parte.charAt(0).toUpperCase() + parte.slice(1))
+            .join('-')
+        )
+        .join(' ');
+    }
+    
     if (name === 'numero') {
-      value = value.replace(/[^a-zA-Z0-9\-\/.]/g, ''); // número/letra/hífen/barra/ponto
+      value = value.replace(/[^a-zA-Z0-9\-\/.]/g, '');
     }
   
     if (name === 'email') {
       value = value
         .toLowerCase()
-        .replace(/[^a-z0-9@._\-]/g, ''); // limpa símbolos inválidos
+        .replace(/[^a-z0-9@._\-]/g, '');
     }
   
     if (name === 'telefone') {
@@ -251,32 +252,24 @@ export default function CadastroUsuario() {
     }
   
     if (name === 'data_nascimento') {
-      // Remove tudo que não é dígito
       const onlyNums = value.replace(/\D/g, '');
-      
-      // Aplica validações em tempo real
       let formattedValue = '';
       
       for (let i = 0; i < onlyNums.length; i++) {
-        // Validação do dia (não pode começar com >3)
         if (i === 0 && onlyNums[i] > 3) continue;
         
-        // Validação do dia completo (não pode ser >31)
         if (i === 1) {
           const day = parseInt(onlyNums[0] + onlyNums[1]);
           if (day > 31) continue;
         }
         
-        // Validação do mês (não pode começar com >1)
         if (i === 2 && onlyNums[i] > 1) continue;
         
-        // Validação do mês completo (não pode ser >12)
         if (i === 3) {
           const month = parseInt(onlyNums[2] + onlyNums[3]);
           if (month > 12) continue;
         }
         
-        // Adiciona as barras na posição correta
         if (i === 2 || i === 4) formattedValue += '/';
         formattedValue += onlyNums[i];
       }
@@ -284,6 +277,11 @@ export default function CadastroUsuario() {
       value = formattedValue;
     }
     
+    if (name === 'aceitou_termos') {
+      setForm(prev => ({ ...prev, [name]: value }));
+      setErrors(prev => ({ ...prev, [name]: false }));
+      return;
+    }
   
     setForm(prev => ({ ...prev, [name]: value }));
     setErrors(prev => ({ ...prev, [name]: false }));
@@ -427,7 +425,6 @@ export default function CadastroUsuario() {
         newErrorMessages.password2 = 'As senhas não coincidem';
         isValid = false;
       }
-      // ✅ Validação do checkbox dos Termos
       if (!form.aceitou_termos) {
         newErrors.aceitou_termos = true;
         newErrorMessages.aceitou_termos = 'Você precisa aceitar os Termos';
@@ -438,6 +435,11 @@ export default function CadastroUsuario() {
     setErrors(newErrors);
     setErrorMessages(newErrorMessages);
     return isValid;
+  };
+
+  const formatarDataParaBackend = (dataStr) => {
+    const [dia, mes, ano] = dataStr.split('/');
+    return `${ano}-${mes}-${dia}`;
   };
 
   const handleSubmit = async (e) => {
@@ -455,13 +457,8 @@ export default function CadastroUsuario() {
       return;
     }
 
-    if (name === 'aceitou_termos') {
-      setForm(prev => ({ ...prev, aceitou_termos: value }));
-      return;
-    }
-
     try {
-      await registerUser({
+      const res = await registerUser({
         ...form,
         password1: form.password,
         password2: form.password2,
@@ -470,18 +467,24 @@ export default function CadastroUsuario() {
         cpf: form.cpf.replace(/\D/g, ''),
         telefone: form.telefone.replace(/\D/g, '')
       });
-      toast.success('Cadastro realizado com sucesso!');
-      setTimeout(() => navigate('/login'), 2000);
+
+      if (res.success) {
+        toast.success('Cadastro realizado com sucesso!');
+        setTimeout(() => navigate('/auth/login'), 2000);
+      } else if (typeof res.error === 'object') {
+        const campoErro = Object.keys(res.error)[0];
+        const mensagem = res.error[campoErro]?.[0] || 'Erro desconhecido.';
+        toast.error(`Erro no campo "${campoErro}": ${mensagem}`);
+      } else {
+        toast.error(res.error || 'Erro inesperado no cadastro.');
+      }
+
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Erro ao cadastrar usuário');
+      toast.error('Erro ao cadastrar usuário.');
+      console.error('❌ Erro inesperado:', error);
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const formatarDataParaBackend = (dataStr) => {
-    const [dia, mes, ano] = dataStr.split('/');
-    return `${ano}-${mes}-${dia}`;
   };
 
   const handlePrevious = () => {

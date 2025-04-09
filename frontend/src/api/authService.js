@@ -1,9 +1,10 @@
-import api from './api'; // Importando a instância do axios
+import api from './api';
+
 
 export const registerUser = async (userData) => {
   try {
-    console.log('Dados sendo enviados:', userData);
-    
+    console.log('📤 Dados enviados para registro:', userData);
+
     const response = await api.post('/dj-rest-auth/registration/', {
       email: userData.email,
       password1: userData.password,
@@ -21,63 +22,84 @@ export const registerUser = async (userData) => {
       cidade: userData.cidade,
       estado: userData.estado,
       aceitou_termos: userData.aceitou_termos,
-      pais: userData.pais || 'Brasil'
     });
 
-    console.log('Resposta da API:', response);
-    
+    console.log('✅ Registro bem-sucedido:', response.data);
+
     return {
       success: true,
-      token: response.data.key || response.data.access_token,
-      user: response.data.user
+      token: response.data.access_token || response.data.access,
+      refreshToken: response.data.refresh_token || response.data.refresh,
+      user: response.data.user,
     };
-    
   } catch (error) {
-    console.error('Erro completo:', error);
-    
+    const errorData = error.response?.data;
+    console.error('❌ Erro ao registrar usuário:', errorData);
+
+    // Captura erros conhecidos do backend
+    if (errorData) {
+      if (errorData.email?.length) {
+        return { success: false, error: 'Email já cadastrado.' };
+      }
+      if (errorData.cpf?.length) {
+        return { success: false, error: 'CPF já cadastrado.' };
+      }
+      if (errorData.telefone?.length) {
+        return { success: false, error: 'Telefone já cadastrado.' };
+      }
+      if (errorData.password1?.length) {
+        return { success: false, error: errorData.password1.join(' ') };
+      }
+      if (errorData.non_field_errors?.length) {
+        return { success: false, error: errorData.non_field_errors.join(' ') };
+      }
+    }
+
     return {
       success: false,
-      error: error.response?.data || { message: error.message }
+      error: 'Erro desconhecido. Verifique o console ou tente novamente mais tarde.',
     };
   }
 };
 
-export const loginUser = async (credentials) => {
+export const loginUser = async (email, password) => {
   try {
-    const response = await api.post('/dj-rest-auth/login/', credentials);
+    const response = await api.post('/dj-rest-auth/login/', {
+      email,
+      password,
+    });
+
+    const { access, refresh } = response.data;
+
+    // Armazena token
+    localStorage.setItem("token", access);
+    api.defaults.headers.common["Authorization"] = `Bearer ${access}`;
+
+    const userRes = await api.get('/dj-rest-auth/user/');
+
     return {
-      key: response.data.key,
-      user: {
-        email: credentials.email,
-        // Adicione outros dados do usuário conforme retornado pelo backend
-      }
+      token: access,
+      refreshToken: refresh,
+      user: userRes.data,
     };
   } catch (error) {
-    let errorMessage = 'Credenciais inválidas';
-    if (error.response?.data?.non_field_errors) {
-      errorMessage = error.response.data.non_field_errors.join(' ');
-    }
-    throw new Error(errorMessage);
-  }
-};
+    const errorData = error.response?.data;
+    console.error('❌ Erro ao fazer login:', errorData);
 
-export const verifyToken = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
-    
-    const response = await api.get('/dj-rest-auth/user/');
-    return !!response.data.pk; // Verifica se tem primary key do usuário
-  } catch (error) {
-    console.error('Token verification failed:', error);
-    return false;
+    if (errorData?.non_field_errors) {
+      return { success: false, error: errorData.non_field_errors.join(' ') };
+    }
+
+    return { success: false, error: 'Erro ao fazer login. Verifique seus dados.' };
   }
 };
 
 export const logoutUser = async () => {
   try {
     await api.post('/dj-rest-auth/logout/');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   } catch (error) {
-    console.error('Logout failed:', error);
+    console.error('⚠️ Erro ao fazer logout:', error);
   }
 };

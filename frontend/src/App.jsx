@@ -1,14 +1,16 @@
-import { Toaster } from 'react-hot-toast';
-import '@/styles/global.css';
-
-// Importação direta (substitua pelo caminho correto)
-import AppRoutes from './routes/AppRoutes';
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { JitsiProvider } from "@/contexts/JitsiContext";
+import AppRoutes from "@/routes/AppRoutes";
 
 export default function App() {
   return (
-    <>
-      <AppRoutes />
-      <Toaster position="top-right" />
-    </>
+    <BrowserRouter>
+      <AuthProvider>
+        <JitsiProvider>
+          <AppRoutes />
+        </JitsiProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

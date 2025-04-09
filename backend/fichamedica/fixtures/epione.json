@@ -1,0 +1,200 @@
+[
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Doença de Alzheimer",
+      "descricao": "Distúrbio neurodegenerativo progressivo que afeta memória e cognição.",
+      "gravidade": "moderada",
+      "duracao_min_dias": 3,
+      "duracao_max_dias": 11,
+      "fatores_climaticos": ["frio intenso"],
+      "sintomas_comuns": ["cefaleia", "perda_paladar", "perda_olfato", "dispneia"],
+      "relacao_trabalho": "forte",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "idosos",
+      "tratamento": "nutricional",
+      "fatores_comportamentais": ["estresse crônico", "obesidade", "alcoolismo"],
+      "fitoterapia": "não aconselhável"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Parkinson",
+      "descricao": "Distúrbio neurológico progressivo que afeta o movimento.",
+      "gravidade": "leve",
+      "duracao_min_dias": 5,
+      "duracao_max_dias": 11,
+      "fatores_climaticos": ["alta umidade", "tempo seco"],
+      "sintomas_comuns": ["cefaleia", "fadiga", "perda_paladar", "olhos_vermelhos", "mialgia"],
+      "relacao_trabalho": "nenhuma",
+      "relacao_saude_mental": "não",
+      "populacao_afetada": "adultos",
+      "tratamento": "fisioterapia",
+      "fatores_comportamentais": ["obesidade"],
+      "fitoterapia": "não aconselhável"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Epilepsia",
+      "descricao": "Transtorno neurológico caracterizado por crises convulsivas.",
+      "gravidade": "grave",
+      "duracao_min_dias": 4,
+      "duracao_max_dias": 9,
+      "fatores_climaticos": ["tempo seco"],
+      "sintomas_comuns": ["perda_paladar", "dor_garganta"],
+      "relacao_trabalho": "possível",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "idosos",
+      "tratamento": "nutricional",
+      "fatores_comportamentais": [],
+      "fitoterapia": "não aconselhável"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Esclerose Múltipla",
+      "descricao": "Doença autoimune que afeta o sistema nervoso central.",
+      "gravidade": "leve",
+      "duracao_min_dias": 4,
+      "duracao_max_dias": 12,
+      "fatores_climaticos": ["mudanças bruscas de temperatura", "alta umidade", "tempo seco"],
+      "sintomas_comuns": ["artralgia", "cefaleia", "fadiga", "olhos_vermelhos", "perda_olfato"],
+      "relacao_trabalho": "possível",
+      "relacao_saude_mental": "não",
+      "populacao_afetada": "todas",
+      "tratamento": "cirúrgico",
+      "fatores_comportamentais": ["obesidade", "tabagismo", "estresse crônico"],
+      "fitoterapia": "efetivo"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "AVC (Acidente Vascular Cerebral)",
+      "descricao": "Interrupção do fluxo sanguíneo para o cérebro.",
+      "gravidade": "grave",
+      "duracao_min_dias": 3,
+      "duracao_max_dias": 18,
+      "fatores_climaticos": ["alta umidade", "frio intenso"],
+      "sintomas_comuns": ["febre", "náusea", "artralgia", "dor_garganta", "tosse"],
+      "relacao_trabalho": "nenhuma",
+      "relacao_saude_mental": "não",
+      "populacao_afetada": "todas",
+      "tratamento": "medicamentoso",
+      "fatores_comportamentais": ["obesidade", "tabagismo", "alcoolismo"],
+      "fitoterapia": "com evidências limitadas"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Neuralgia do trigêmeo",
+      "descricao": "Dor intensa em um dos nervos da face.",
+      "gravidade": "moderada",
+      "duracao_min_dias": 6,
+      "duracao_max_dias": 21,
+      "fatores_climaticos": ["vento forte"],
+      "sintomas_comuns": ["febre", "tosse", "confusao", "dispneia", "náusea"],
+      "relacao_trabalho": "nenhuma",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "idosos",
+      "tratamento": "medicamentoso",
+      "fatores_comportamentais": ["alcoolismo", "tabagismo"],
+      "fitoterapia": "efetivo"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Esclerose Lateral Amiotrófica (ELA)",
+      "descricao": "Doença que afeta os neurônios motores.",
+      "gravidade": "moderada",
+      "duracao_min_dias": 5,
+      "duracao_max_dias": 11,
+      "fatores_climaticos": ["mudanças bruscas de temperatura", "frio intenso"],
+      "sintomas_comuns": ["febre", "olhos_vermelhos"],
+      "relacao_trabalho": "possível",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "adultos",
+      "tratamento": "fisioterapia",
+      "fatores_comportamentais": ["obesidade", "alcoolismo"],
+      "fitoterapia": "sem evidências"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Meningite",
+      "descricao": "Inflamação das membranas que envolvem o cérebro e a medula espinhal.",
+      "gravidade": "moderada",
+      "duracao_min_dias": 3,
+      "duracao_max_dias": 21,
+      "fatores_climaticos": ["tempo seco"],
+      "sintomas_comuns": ["confusao", "dispneia"],
+      "relacao_trabalho": "forte",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "adultos",
+      "tratamento": "psicoterapia",
+      "fatores_comportamentais": ["sedentarismo", "estresse crônico", "alcoolismo"],
+      "fitoterapia": "sem evidências"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Doença de Huntington",
+      "descricao": "Doença genética que causa deterioração progressiva dos neurônios.",
+      "gravidade": "moderada",
+      "duracao_min_dias": 4,
+      "duracao_max_dias": 10,
+      "fatores_climaticos": ["vento forte", "alta umidade"],
+      "sintomas_comuns": ["mialgia", "perda_olfato", "perda_paladar", "artralgia"],
+      "relacao_trabalho": "forte",
+      "relacao_saude_mental": "não",
+      "populacao_afetada": "crianças",
+      "tratamento": "nutricional",
+      "fatores_comportamentais": ["alcoolismo"],
+      "fitoterapia": "não aconselhável"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Síndrome das pernas inquietas",
+      "descricao": "Desejo incontrolável de mover as pernas, especialmente à noite.",
+      "gravidade": "moderada",
+      "duracao_min_dias": 5,
+      "duracao_max_dias": 12,
+      "fatores_climaticos": ["mudanças bruscas de temperatura", "alta umidade"],
+      "sintomas_comuns": ["perda_olfato", "cefaleia", "olhos_vermelhos", "perda_paladar"],
+      "relacao_trabalho": "nenhuma",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "todas",
+      "tratamento": "medicamentoso",
+      "fatores_comportamentais": ["estresse crônico"],
+      "fitoterapia": "sem evidências"
+    }
+  },
+  {
+    "model": "epione.doenca",
+    "fields": {
+      "nome": "Enxaqueca com aura",
+      "descricao": "Tipo de enxaqueca precedida por distúrbios visuais.",
+      "gravidade": "grave",
+      "duracao_min_dias": 7,
+      "duracao_max_dias": 19,
+      "fatores_climaticos": ["tempo seco"],
+      "sintomas_comuns": ["cefaleia", "tosse"],
+      "relacao_trabalho": "possível",
+      "relacao_saude_mental": "sim",
+      "populacao_afetada": "adultos",
+      "tratamento": "cirúrgico",
+      "fatores_comportamentais": ["alcoolismo"],
+      "fitoterapia": "sem evidências"
+    }
+  }
+]

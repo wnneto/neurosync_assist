@@ -1,14 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
-import { registerUser, loginUser } from "@/api/authService";
 import { useNavigate } from "react-router-dom";
+import { loginUser, registerUser } from "@/api/authService";
+import { useAuth } from "@/contexts/AuthContext";
+import toast from "react-hot-toast";
 
-export default function AuthForm({
-  mode = "login",
-  onSuccess,
-  onRegisterClick,
-}) {
+export default function AuthForm({ mode = "login", onRegisterClick }) {
   const navigate = useNavigate();
+  const { login } = useAuth(); // 🔑 Usa o contexto de autenticação
 
   const [form, setForm] = useState({
     nome: "",
@@ -17,43 +15,43 @@ export default function AuthForm({
     password2: "",
   });
 
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (mode === "register") {
-      if (!form.nome || !form.email || !form.password || !form.password2) {
-        alert("Preencha todos os campos obrigatórios.");
-        return;
-      }
-      if (form.password !== form.password2) {
-        alert("As senhas não coincidem.");
-        return;
-      }
-    } else {
-      if (!form.email || !form.password) {
-        alert("Preencha email e senha.");
-        return;
-      }
-    }
-
     try {
       if (mode === "login") {
-        await loginUser(form.email, form.password);
-        alert("Login realizado com sucesso!");
-        onSuccess();
+        const { token, user } = await loginUser(form.email, form.password);
+        login(user, token);
+        toast.success("Login realizado com sucesso!");
+        navigate("/");
       } else {
+        if (!form.nome || !form.email || !form.password || !form.password2) {
+          toast.error("Preencha todos os campos obrigatórios.");
+          return;
+        }
+
+        if (form.password !== form.password2) {
+          toast.error("As senhas não coincidem.");
+          return;
+        }
+
         await registerUser({
           nome: form.nome,
           email: form.email,
           password1: form.password,
           password2: form.password2,
         });
-        alert("Cadastro realizado com sucesso!");
-        onSuccess();
+
+        toast.success("Cadastro realizado com sucesso!");
+        navigate("/auth/login");
       }
     } catch (err) {
+      toast.error(err.message || "Erro no processo de autenticação.");
       console.error(err);
-      alert(err.response?.data?.message || "Erro no processo.");
     }
   };
 
@@ -67,8 +65,9 @@ export default function AuthForm({
           <input
             className="input"
             placeholder="Nome completo *"
+            name="nome"
             value={form.nome}
-            onChange={(e) => setForm({ ...form, nome: e.target.value })}
+            onChange={handleChange}
           />
         )}
 
@@ -76,23 +75,26 @@ export default function AuthForm({
           className="input"
           type="email"
           placeholder="Email *"
+          name="email"
           value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          onChange={handleChange}
         />
         <input
           className="input"
           type="password"
           placeholder="Senha *"
+          name="password"
           value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          onChange={handleChange}
         />
         {mode === "register" && (
           <input
             className="input"
             type="password"
             placeholder="Repita a Senha *"
+            name="password2"
             value={form.password2}
-            onChange={(e) => setForm({ ...form, password2: e.target.value })}
+            onChange={handleChange}
           />
         )}
 
@@ -107,12 +109,12 @@ export default function AuthForm({
             className="text-blue-600 hover:underline"
             onClick={onRegisterClick}
           >
-            Não tem conta? Cadastre-se
+
           </button>
         ) : (
           <button
             className="text-blue-600 hover:underline"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/auth/login")}
           >
             Já tem conta? Faça login
           </button>
@@ -121,6 +123,3 @@ export default function AuthForm({
     </div>
   );
 }
-
-
-

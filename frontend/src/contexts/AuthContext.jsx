@@ -1,81 +1,68 @@
+// src/contexts/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [authState, setAuthState] = useState({
-    isAuthenticated: false,
-    isLoading: true,  // Adicionado estado de loading
-    user: null
-  });
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Verifica autenticação ao carregar
   useEffect(() => {
-    const checkAuth = () => {
+    const loadUser = () => {
       const storedUser = localStorage.getItem('user');
       const storedToken = localStorage.getItem('token');
-      
-      if (storedUser && storedToken) {
-        setAuthState({
-          isAuthenticated: true,
-          isLoading: false,
-          user: JSON.parse(storedUser)
-        });
-      } else {
-        setAuthState(prev => ({ ...prev, isLoading: false }));
+      const storedExpiry = localStorage.getItem('expiry');
+
+      if (storedUser && storedToken && storedExpiry) {
+        const expiryDate = new Date(storedExpiry);
+        if (expiryDate > new Date()) {
+          setUser(JSON.parse(storedUser));
+        } else {
+          logout(); // Limpa dados expirados
+        }
       }
+      setIsLoading(false);
     };
 
-    checkAuth();
+    loadUser();
   }, []);
 
   const login = (userData, token) => {
+    // Define expiração para 12 horas a partir de agora
+    const expiryDate = new Date();
+    expiryDate.setHours(expiryDate.getHours() + 12);
+    
     localStorage.setItem('user', JSON.stringify(userData));
     localStorage.setItem('token', token);
-    setAuthState({
-      isAuthenticated: true,
-      isLoading: false,
-      user: userData
-    });
+    localStorage.setItem('expiry', expiryDate.toISOString());
+    
+    setUser(userData);
+    navigate('/dashboard');
   };
 
   const logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    setAuthState({
-      isAuthenticated: false,
-      isLoading: false,
-      user: null
-    });
+    localStorage.removeItem('expiry');
+    setUser(null);
+    navigate('/login');
   };
 
-  // Função para atualizar dados do usuário
-  const updateUser = (updatedUser) => {
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    setAuthState(prev => ({
-      ...prev,
-      user: updatedUser
-    }));
-  };
+  const isAuthenticated = !!user;
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        ...authState,
-        login,
-        logout,
-        updateUser
-      }}
-    >
+    <AuthContext.Provider value={{ 
+      user, 
+      isAuthenticated, 
+      isLoading, 
+      login, 
+      logout 
+    }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
-  }
-  return context;
-}
+export const useAuth = () => useContext(AuthContext);
