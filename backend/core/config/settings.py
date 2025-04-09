@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 from django.conf.locale.pt_BR import formats as pt_br_formats
 import os
@@ -117,6 +118,21 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+
+
+# ======================
+# JWT - CONFIG
+# ======================
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # Tempo de expiração (1 dia)
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'SIGNING_KEY': 'seu_segredo_super_secreto',
+    'ALGORITHM': 'HS256',
+}
+
+
+
 
 # ======================
 # DJ-REST-AUTH
